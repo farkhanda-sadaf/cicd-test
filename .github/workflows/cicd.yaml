@@ -35,7 +35,7 @@ jobs:
 
       - name: Upload dist to S3
         run: |
-          aws s3 sync dist s3://sadaf-test-bucket/ --recursive
+          aws s3 sync dist s3://sadaf-test-bucket/
 
       - name: Invalidate CloudFront cache
         run: |
