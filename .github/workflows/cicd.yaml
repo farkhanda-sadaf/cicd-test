@@ -3,7 +3,7 @@ name: Deploy React project
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
