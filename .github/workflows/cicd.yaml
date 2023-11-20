@@ -13,20 +13,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Select node version
+        uses: actions/setup-node@v3
+        with: 
+          node-version: '16.x'
+
       - name: Install dependencies and build
         run: |
           npm i --legacy-peer-deps
           npm run build
 
-      - name: Configure AWS credentials
+
+      - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+            role-to-assume: arn:aws:iam::823332935035:role/Github-Action-role
+            role-session-name: samplerolesession
+            aws-region: us-east-1 
+
       - name: Upload build to S3
         run: |
-          aws s3 sync . s3://sadaf-test-bucket/ --recursive
+          aws s3 sync build s3://sadaf-test-bucket/ --recursive
 
       - name: Invalidate CloudFront cache
         run: |
