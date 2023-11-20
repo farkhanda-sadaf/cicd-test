@@ -23,7 +23,6 @@ jobs:
           npm i --legacy-peer-deps
           npm run build
 
-
       - name: configure aws credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
@@ -31,9 +30,9 @@ jobs:
             role-session-name: samplerolesession
             aws-region: us-east-1 
 
-      - name: Upload build to S3
+      - name: Upload dist to S3
         run: |
-          aws s3 sync build s3://sadaf-test-bucket/ --recursive
+          aws s3 sync dist s3://sadaf-test-bucket/ --recursive
 
       - name: Invalidate CloudFront cache
         run: |
